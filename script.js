@@ -159,26 +159,30 @@ function mostraResultado() {
       cartas.push(deck[request.cartasSelecionadas[i]]);
     }
 
-    $.ajax({
+    fazerRequisicao(cartas);
+    $("#resultado").fadeIn(200);
+}
+
+function fazerRequisicao(cartas) {
+  $.ajax({
       url: 'http://tarotonlinetest.us-east-1.elasticbeanstalk.com/executar',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
-          baralho: request.baralho=='waiteSmith'?"WAITE_SMITH":"CIGANO",
+          baralho: request.baralho == 'waiteSmith' ? "WAITE_SMITH" : "CIGANO",
           aspecto: request.aspecto,
           cartasSelecionadas: cartas
       }),
       success: function(response) {
+          $("#reenviar").fadeOut(0);
+          $("#refazer").fadeIn(0);
           $("#interpretacao").html(response);
-
       },
       error: function(xhr, status, error) {
-        $("#interpretacao").html("Não foi possível se comunicar com o servidor.");
+          console.error("Erro na requisição. Tentando novamente em 1 segundo.");
+          //setTimeout(fazerRequisicao, 1000); // Tenta novamente após 1 segundo
       }
   });
-
-
-    $("#resultado").fadeIn(200);
 }
 
 function getSelectValues(className) {
