@@ -165,7 +165,7 @@ function mostraResultado() {
 
 function fazerRequisicao(cartas) {
   $.ajax({
-      url: 'http://tarotonlinetest.us-east-1.elasticbeanstalk.com/executar',
+      url: 'https://boiling-plateau-06313-a27418c15e8f.herokuapp.com/executar',
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -180,7 +180,7 @@ function fazerRequisicao(cartas) {
       },
       error: function(xhr, status, error) {
           console.error("Erro na requisição. Tentando novamente em 1 segundo.");
-          //setTimeout(fazerRequisicao, 1000); // Tenta novamente após 1 segundo
+          setTimeout(fazerRequisicao, 1000); // Tenta novamente após 1 segundo
       }
   });
 }
