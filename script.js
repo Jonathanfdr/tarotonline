@@ -1,6 +1,6 @@
 
 let request = {
-    "tipoBaralho": "",
+    "baralho": "",
     "tipoTiragem": "",
     "aspecto": "",
     "informaCartas": false,
@@ -14,21 +14,21 @@ function showCardsSelect(prefix, cards) {
 }
 
 function sorteiaCartas(quantidade) {
-    var max = request.tipoBaralho=='waiteSmith'?waiteSmith.length:cigano.length;
+    var max = request.baralho=='waiteSmith'?waiteSmith.length:cigano.length;
+    
     for(var i=0;i<quantidade;i++) {
-        do {
-        var sorteado = Math.floor(Math.random() * max);
-        if (!request.cartasSelecionadas.includes(sorteado)) {
-            request.cartasSelecionadas.push(sorteado);
-        }
-        } while(!request.cartasSelecionadas.includes(sorteado));
-        
+      var sorteado = Math.floor(Math.random() * max);
+      while (request.cartasSelecionadas.includes(sorteado)){
+        sorteado = Math.floor(Math.random() * max);     
+      }
+      request.cartasSelecionadas.push(sorteado);
     }
+    console.log(request.cartasSelecionadas);
 }
 
 $(document).ready(function() {
     let perguntaAtual = 1;
-    let tipoBaralho = "";
+    let baralho = "";
   
     function mostrarProximaPergunta() {
       $(`#pergunta${perguntaAtual}`).fadeOut(400, function() {
@@ -39,7 +39,7 @@ $(document).ready(function() {
           $("#perguntas").fadeOut(200, function() {
 
             if(request.informaCartas) {
-                let prefix = request.tipoBaralho=='waiteSmith'?'ws':'ci';
+                let prefix = request.baralho=='waiteSmith'?'ws':'ci';
                 switch(request.tipoTiragem) {
                     case 'umaCarta':
                         showCardsSelect(prefix, ["01"]);
@@ -80,15 +80,15 @@ $(document).ready(function() {
     }
   
     $("#pergunta1 .opcoes button").click(function() {
-      tipoBaralho = $(this).data("resposta");
-      if (tipoBaralho === "Waite-Smith") {
-        request.tipoBaralho="waiteSmith";
+      baralho = $(this).data("resposta");
+      if (baralho === "Waite-Smith") {
+        request.baralho="waiteSmith";
         $("#opcoesTiragem").html(`
           <button class="btn btn-outline-primary btn-lg m-2" onClick='request.tipoTiragem="umaCarta";'>Uma carta</button>
           <button class="btn btn-outline-primary btn-lg m-2" onClick='request.tipoTiragem="tresCartas";'>Três cartas</button>
         `);
-      } else if (tipoBaralho === "Cigano") {
-        request.tipoBaralho="cigano";
+      } else if (baralho === "Cigano") {
+        request.baralho="cigano";
         $("#opcoesTiragem").html(`
           <button class="btn btn-outline-primary btn-lg m-2" onClick='request.tipoTiragem="umaCarta"'>Uma carta</button>
           <button class="btn btn-outline-primary btn-lg m-2" onClick='request.tipoTiragem="tresCartas"'>Três cartas</button>
@@ -110,7 +110,7 @@ $(document).ready(function() {
   
   function enviar() {
 
-    var values = request.tipoBaralho=='waiteSmith'?getSelectValues('waiteSmith'):getSelectValues('cigano');
+    var values = request.baralho=='waiteSmith'?getSelectValues('waiteSmith'):getSelectValues('cigano');
     
     for (var i in values) {
         if(values[i]!=-1) {
@@ -152,7 +152,32 @@ function mostraResultado() {
             $("#t22").html(montaImagem(request.cartasSelecionadas[8]));
             break;
     }
-    console.log("Manda pra fazer a consulta no chat");
+    
+    var deck = request.baralho=='waiteSmith'? waiteSmith: cigano;
+    var cartas = [];
+    for (var i in request.cartasSelecionadas){
+      cartas.push(deck[request.cartasSelecionadas[i]]);
+    }
+
+    $.ajax({
+      url: 'http://tarotonlinetest.us-east-1.elasticbeanstalk.com/executar',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({
+          baralho: request.baralho=='waiteSmith'?"WAITE_SMITH":"CIGANO",
+          aspecto: request.aspecto,
+          cartasSelecionadas: cartas
+      }),
+      success: function(response) {
+          $("#interpretacao").html(response);
+
+      },
+      error: function(xhr, status, error) {
+        $("#interpretacao").html("Não foi possível se comunicar com o servidor.");
+      }
+  });
+
+
     $("#resultado").fadeIn(200);
 }
 
@@ -163,7 +188,7 @@ function getSelectValues(className) {
 }
 
 function montaImagem(valor) {
-    var folder = request.tipoBaralho=='waiteSmith'?'waite':'cigano';
-    var deck = request.tipoBaralho=='waiteSmith'? waiteSmith: cigano;
+    var folder = request.baralho=='waiteSmith'?'waite':'cigano';
+    var deck = request.baralho=='waiteSmith'? waiteSmith: cigano;
     return "<img src='"+folder+"/"+valor+".jpg' class='cardImage'><p class='cardDesc'>"+deck[valor]+"</p>";
 }

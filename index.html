@@ -30,12 +30,12 @@
       <div class="pergunta" id="pergunta3">
         Qual aspecto está em questão?
         <div class="opcoes mt-3">
-          <button class="btn btn-outline-primary btn-lg m-2" onClick='request.aspecto="amor"'>Amor</button>
-          <button class="btn btn-outline-primary btn-lg m-2" onClick='request.aspecto="trabalho"'>Trabalho</button>
-          <button class="btn btn-outline-primary btn-lg m-2" onClick='request.aspecto="familia"'>Família</button>
-          <button class="btn btn-outline-primary btn-lg m-2" onClick='request.aspecto="amizade"'>Amizades</button>
-          <button class="btn btn-outline-primary btn-lg m-2" onClick='request.aspecto="dinheiro"'>Dinheiro</button>
-          <button class="btn btn-outline-primary btn-lg m-2" onClick='request.aspecto="geral"'>Geral</button>
+          <button class="btn btn-outline-primary btn-lg m-2" onClick='request.aspecto="AMOR"'>Amor</button>
+          <button class="btn btn-outline-primary btn-lg m-2" onClick='request.aspecto="TRABALHO"'>Trabalho</button>
+          <button class="btn btn-outline-primary btn-lg m-2" onClick='request.aspecto="FAMILIA"'>Família</button>
+          <button class="btn btn-outline-primary btn-lg m-2" onClick='request.aspecto="AMIGOS"'>Amizades</button>
+          <button class="btn btn-outline-primary btn-lg m-2" onClick='request.aspecto="DINHEIRO"'>Dinheiro</button>
+          <button class="btn btn-outline-primary btn-lg m-2" onClick='request.aspecto="GERAL"'>Geral</button>
         </div>
       </div>
 
@@ -51,49 +51,41 @@
 
     <div id="tiragemManual" class="mt-4" style="display:none;">
         <p>Selecione as cartas da sua tiragem</p>
-        <table class="table text-center table-borderless">
-                <tr>
-                    <td id="tm00"> <select class="waiteSmith" id="ws00"><option value="-1">Selecione a carta</option></select> <select id="ci00" class="cigano"><option value="-1">Selecione a carta</option></select></td>
-                    <td id="tm01"> <select class="waiteSmith" id="ws01"><option value="-1">Selecione a carta</option></select> <select id="ci01" class="cigano"><option value="-1">Selecione a carta</option></select></td>
-                    <td id="tm02"> <select class="waiteSmith" id="ws02"><option value="-1">Selecione a carta</option></select> <select id="ci02" class="cigano"><option value="-1">Selecione a carta</option></select></td>
-                </tr>
-                <tr>
-                    <td id="tm10"> <select class="waiteSmith" id="ws10"><option value="-1">Selecione a carta</option></select> <select id="ci10" class="cigano"><option value="-1">Selecione a carta</option></select></td>
-                    <td id="tm11"> <select class="waiteSmith" id="ws11"><option value="-1">Selecione a carta</option></select> <select id="ci11" class="cigano"><option value="-1">Selecione a carta</option></select></td>
-                    <td id="tm12"> <select class="waiteSmith" id="ws12"><option value="-1">Selecione a carta</option></select> <select id="ci12" class="cigano"><option value="-1">Selecione a carta</option></select></td>
-                </tr>
-                <tr>
-                    <td id="tm20"> <select class="waiteSmith" id="ws20"><option value="-1">Selecione a carta</option></select> <select id="ci20" class="cigano"><option value="-1">Selecione a carta</option></select></td>
-                    <td id="tm21"> <select class="waiteSmith" id="ws21"><option value="-1">Selecione a carta</option></select> <select id="ci21" class="cigano"><option value="-1">Selecione a carta</option></select></td>
-                    <td id="tm22"> <select class="waiteSmith" id="ws22"><option value="-1">Selecione a carta</option></select> <select id="ci22" class="cigano"><option value="-1">Selecione a carta</option></select></td>
-                </tr>
-        </table>
+        <div style="padding-bottom: 15px;">
+          <span id="tm00"> <select class="waiteSmith" id="ws00"><option value="-1">Selecione a carta</option></select> <select id="ci00" class="cigano"><option value="-1">Selecione a carta</option></select></span>
+          <span id="tm01"> <select class="waiteSmith" id="ws01"><option value="-1">Selecione a carta</option></select> <select id="ci01" class="cigano"><option value="-1">Selecione a carta</option></select></span>
+          <span id="tm02"> <select class="waiteSmith" id="ws02"><option value="-1">Selecione a carta</option></select> <select id="ci02" class="cigano"><option value="-1">Selecione a carta</option></select></span>
+<br>
+</div>
+<div style="padding-bottom: 15px;">
+          <span id="tm10"> <select class="waiteSmith" id="ws10"><option value="-1">Selecione a carta</option></select> <select id="ci10" class="cigano"><option value="-1">Selecione a carta</option></select></span>
+          <span id="tm11"> <select class="waiteSmith" id="ws11"><option value="-1">Selecione a carta</option></select> <select id="ci11" class="cigano"><option value="-1">Selecione a carta</option></select></span>
+          <span id="tm12"> <select class="waiteSmith" id="ws12"><option value="-1">Selecione a carta</option></select> <select id="ci12" class="cigano"><option value="-1">Selecione a carta</option></select></span>
+<br>
+</div>
+          <span id="tm20"> <select class="waiteSmith" id="ws20"><option value="-1">Selecione a carta</option></select> <select id="ci20" class="cigano"><option value="-1">Selecione a carta</option></select></span>
+          <span id="tm21"> <select class="waiteSmith" id="ws21"><option value="-1">Selecione a carta</option></select> <select id="ci21" class="cigano"><option value="-1">Selecione a carta</option></select></span>
+          <span id="tm22"> <select class="waiteSmith" id="ws22"><option value="-1">Selecione a carta</option></select> <select id="ci22" class="cigano"><option value="-1">Selecione a carta</option></select></span>
+          <br>
         <button class="btn btn-outline-primary btn-lg m-2" onClick='enviar()'>Enviar</button>
     </div>
 
     <div id="resultado" class="mt-4" style="display:none;">
-        <p>Resultado:</p>
-        <table class="table table-borderless text-center">
-            <tbody>
-                <tr>
-                    <td id="t00"> </td>
-                    <td id="t01"> </td>
-                    <td id="t02"> </td>
-                </tr>
-                <tr>
-                    <td id="t10"> </td>
-                    <td id="t11"> </td>
-                    <td id="t12"> </td>
-                </tr>
-                <tr>
-                    <td id="t20"> </td>
-                    <td id="t21"> </td>
-                    <td id="t22"> </td>
-                </tr>
-            </tbody>
-        </table>
-
+        <p>Resultado:</p><br>
+        <span class="resultado-span" id="t00"> </span>
+        <span class="resultado-span" id="t01"> </span>
+        <span class="resultado-span" id="t02"> </span>
+        <br>
+        <span class="resultado-span" id="t10"> </span>
+        <span class="resultado-span" id="t11"> </span>
+        <span class="resultado-span" id="t12"> </span>
+        <br>
+        <span class="resultado-span" id="t20"> </span>
+        <span class="resultado-span" id="t21"> </span>
+        <span class="resultado-span" id="t22"> </span>
+        <br>
         <p>Interpretação:</p>
+        <div id="interpretacao">Aguarde...</div>
     </div>
   </div>
 </body>
